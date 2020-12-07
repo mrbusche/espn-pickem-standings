@@ -4,7 +4,6 @@
   leaderboard.getURLParam = function (param) {
     const url = new URL(location.href);
     const searchParams = new URLSearchParams(url.search);
-    console.log(searchParams);
     return searchParams.get(param);
   };
 
@@ -30,7 +29,6 @@
 
   leaderboard.getRequest = function () {
     const groupId = leaderboard.getURLParam('groupId');
-    console.log(groupId);
     fetch(`http://fantasy.espncdn.com/nfl-pigskin-pickem/2020/en/api/v7/group?groupID=${groupId}&sort=-1&start=0&length=50&periodPoints=true`)
       .then((response) => {
         return response.json();
