@@ -20,10 +20,12 @@
     newCell = newRow.insertCell(1);
     newCell.appendChild(document.createTextNode(element.points));
     newCell = newRow.insertCell(2);
-    newCell.appendChild(document.createTextNode(element.ppr));
+    newCell.appendChild(document.createTextNode(element.thisWeek));
     newCell = newRow.insertCell(3);
-    newCell.appendChild(document.createTextNode(element.points + element.ppr));
+    newCell.appendChild(document.createTextNode(element.ppr));
     newCell = newRow.insertCell(4);
+    newCell.appendChild(document.createTextNode(element.points + element.ppr));
+    newCell = newRow.insertCell(5);
     newCell.appendChild(document.createTextNode(element.percentile.toFixed(1) + '%'));
   };
 
@@ -36,7 +38,7 @@
       .then((data) => {
         if (data.g.e !== null) {
           data.g.e.forEach(function (elem) {
-            leaderboard.addRows('leaderboard', { name: elem.n_e, points: elem.p, ppr: elem.ppr === undefined ? 0 : elem.ppr, percentile: elem.pct });
+            leaderboard.addRows('leaderboard', { name: elem.n_e, points: elem.p, ppr: elem.ppr === undefined ? 0 : elem.ppr, percentile: elem.pct, thisWeek: elem.pp['150'] });
           });
         }
       });
