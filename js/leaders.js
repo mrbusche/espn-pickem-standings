@@ -16,7 +16,10 @@
     const tableBodyRef = document.getElementById(id).getElementsByTagName('tbody')[0];
     let newRow = tableBodyRef.insertRow(tableBodyRef.rows.length);
     let newCell = newRow.insertCell(0);
-    newCell.appendChild(document.createTextNode(element.name));
+    newCell.id = element.id;
+    document.getElementById(
+      element.id
+    ).innerHTML = `<a href="http://fantasy.espn.com/nfl-pigskin-pickem/2020/en/entry?entryID=${element.id}" target="_blank">${element.name}</a>`;
     newCell = newRow.insertCell(1);
     newCell.appendChild(document.createTextNode(element.points));
     newCell = newRow.insertCell(2);
@@ -31,14 +34,23 @@
 
   leaderboard.getRequest = function () {
     const groupId = leaderboard.getURLParam('groupId');
-    fetch(`http://fantasy.espncdn.com/nfl-pigskin-pickem/2020/en/api/v7/group?groupID=${groupId}&sort=-1&start=0&length=50&periodPoints=true`)
+    fetch(
+      `http://fantasy.espncdn.com/nfl-pigskin-pickem/2020/en/api/v7/group?groupID=${groupId}&sort=-1&start=0&length=50&periodPoints=true`
+    )
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         if (data.g.e !== null) {
           data.g.e.forEach(function (elem) {
-            leaderboard.addRows('leaderboard', { name: elem.n_e, points: elem.p, ppr: elem.ppr === undefined ? 0 : elem.ppr, percentile: elem.pct, thisWeek: elem.pp['150'] });
+            leaderboard.addRows('leaderboard', {
+              name: elem.n_e,
+              points: elem.p,
+              ppr: elem.ppr === undefined ? 0 : elem.ppr,
+              percentile: elem.pct,
+              thisWeek: elem.pp['151'],
+              id: elem.id,
+            });
           });
         }
       });
