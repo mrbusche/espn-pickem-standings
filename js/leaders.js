@@ -48,7 +48,7 @@
               points: elem.p,
               ppr: elem.ppr === undefined ? 0 : elem.ppr,
               percentile: elem.pct,
-              thisWeek: elem.pp['151'],
+              thisWeek: elem.pp['152'],
               id: elem.id,
             });
           });
